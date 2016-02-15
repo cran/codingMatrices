@@ -7,6 +7,12 @@
   methods::as(m, "sparseMatrix")
 }
 
+.zf <- function(x) {
+  m  <- max(n <- nchar(x <- as.character(x)))
+  z <- paste(rep(0, m), collapse = "")
+  paste0(substring(z, 0, m-n), x)
+}
+
 ##' Coding matrix functions for factors in linear model formulae
 ##'
 ##' These functions provide an alternative to the coding functions supplied
@@ -93,7 +99,7 @@ NULL
 code_control <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (is.numeric(n) && length(n) == 1L) {
     if (n > 1L)
-      levels <- as.character(seq_len(n))
+      levels <- .zf(seq_len(n))
     else stop("not enough degrees of freedom to define contrasts")
   }
   else {
@@ -106,11 +112,16 @@ code_control <- function(n, contrasts = TRUE, sparse = FALSE) {
     if(sparse) B <- .asSparse(B)
     return(B)
   }
-  B[] <- B - 1/n
+  if(max(nchar(levels)) > 3) {
+    levels <- paste0("m", .zf(seq_len(n)))
+  }
+  B <- B - 1/n
+  B <- B[, -1]
+  colnames(B) <- paste(levels[-1], levels[1], sep="-")
   if(sparse){
-    .asSparse(B[, -1])
+    .asSparse(B)
   } else {
-    B[, -1]
+    B
   }
 }
 
@@ -119,7 +130,7 @@ code_control <- function(n, contrasts = TRUE, sparse = FALSE) {
 code_control_last <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (is.numeric(n) && length(n) == 1L) {
     if (n > 1L)
-      levels <- as.character(seq_len(n))
+      levels <- .zf(seq_len(n))
     else stop("not enough degrees of freedom to define contrasts")
   }
   else {
@@ -132,11 +143,16 @@ code_control_last <- function(n, contrasts = TRUE, sparse = FALSE) {
     if(sparse) B <- .asSparse(B)
     return(B)
   }
-  B[] <- B - 1/n
+  if(max(nchar(levels)) > 3) {
+    levels <- paste0("m", .zf(seq_len(n)))
+  }
+  B <- B - 1/n
+  B <- B[, -n]
+  colnames(B) <- paste(levels[-n], levels[n], sep="-")
   if(sparse){
-    .asSparse(B[, -n])
+    .asSparse(B)
   } else {
-    B[, -n]
+    B
   }
 }
 
@@ -145,7 +161,7 @@ code_control_last <- function(n, contrasts = TRUE, sparse = FALSE) {
 code_diff <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (is.numeric(n) && length(n) == 1L) {
     if (n > 1L)
-      levels <- as.character(seq_len(n))
+      levels <- .zf(seq_len(n))
     else stop("not enough degrees of freedom to define contrasts")
   }
   else {
@@ -157,6 +173,9 @@ code_diff <- function(n, contrasts = TRUE, sparse = FALSE) {
     dimnames(B) <- list(1:n, levels)
     if(sparse) B <- .asSparse(B)
     return(B)
+  }
+  if(max(nchar(levels)) > 3) {
+    levels <- paste0("m", .zf(seq_len(n)))
   }
   B <- col(matrix(0, n, n)) - 1
   ut <- upper.tri(B)
@@ -176,7 +195,7 @@ code_diff <- function(n, contrasts = TRUE, sparse = FALSE) {
 code_diff_forward <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (is.numeric(n) && length(n) == 1L) {
     if (n > 1L)
-      levels <- as.character(seq_len(n))
+      levels <- .zf(seq_len(n))
     else stop("not enough degrees of freedom to define contrasts")
   }
   else {
@@ -188,6 +207,9 @@ code_diff_forward <- function(n, contrasts = TRUE, sparse = FALSE) {
     dimnames(B) <- list(1:n, levels)
     if(sparse) B <- .asSparse(B)
     return(B)
+  }
+  if(max(nchar(levels)) > 3) {
+    levels <- paste0("m", .zf(seq_len(n)))
   }
   B <- 1 - col(matrix(0, n, n))
   ut <- upper.tri(B)
@@ -207,7 +229,7 @@ code_diff_forward <- function(n, contrasts = TRUE, sparse = FALSE) {
 code_helmert <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (is.numeric(n) && length(n) == 1L) {
     if (n > 1L)
-      levels <- as.character(seq_len(n))
+      levels <- .zf(seq_len(n))
     else stop("not enough degrees of freedom to define contrasts")
   }
   else {
@@ -225,7 +247,7 @@ code_helmert <- function(n, contrasts = TRUE, sparse = FALSE) {
   B  <- B/rep(1:n, each = n)
   B <- B[, -1]
   dimnames(B) <- list(1:n,
-                      paste0("H", 2:n))
+                      paste0("H", .zf(2:n)))
   if(sparse){
     .asSparse(B)
   } else {
@@ -255,7 +277,7 @@ code_helmert_forward <- function(n, contrasts = TRUE, sparse = FALSE) {
   B[lower.tri(B)] <- -1
   B <- B/rep(n:2, each = n)
   dimnames(B) <- list(1:n,
-                      paste0("FH", 2:n - 1))
+                      paste0("FH", .zf(2:n - 1)))
   if(sparse){
     .asSparse(B)
   } else {
@@ -268,7 +290,7 @@ code_helmert_forward <- function(n, contrasts = TRUE, sparse = FALSE) {
 code_deviation <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (is.numeric(n) && length(n) == 1L) {
     if (n > 1L)
-      levels <- as.character(seq_len(n))
+      levels <- .zf(seq_len(n))
     else stop("not enough degrees of freedom to define contrasts")
   }
   else {
@@ -283,7 +305,7 @@ code_deviation <- function(n, contrasts = TRUE, sparse = FALSE) {
   }
   B <- rbind(diag(n-1), -1)
   dimnames(B) <- list(1:n,
-                      paste0("MD", 2:n - 1))
+                      paste0("MD", .zf(2:n - 1)))
   if(sparse){
     .asSparse(B)
   } else {
@@ -296,7 +318,7 @@ code_deviation <- function(n, contrasts = TRUE, sparse = FALSE) {
 code_deviation_first <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (is.numeric(n) && length(n) == 1L) {
     if (n > 1L)
-      levels <- as.character(seq_len(n))
+      levels <- .zf(seq_len(n))
     else stop("not enough degrees of freedom to define contrasts")
   }
   else {
@@ -311,7 +333,7 @@ code_deviation_first <- function(n, contrasts = TRUE, sparse = FALSE) {
   }
   B <- rbind(-1, diag(n-1))
   dimnames(B) <- list(1:n,
-                      paste0("MD", 2:n))
+                      paste0("MD", .zf(2:n)))
   if(sparse){
     .asSparse(B)
   } else {
@@ -370,8 +392,8 @@ code_poly <- function(n, contrasts = TRUE, sparse = FALSE) {
 ##' mean_contrasts(code_helmert_forward(5))
 ##' mean_contrasts(code_diff_forward(letters[1:7]))
 mean_contrasts <- function(M) {
-  Mi <- solve(if(nrow(M) == ncol(M)) M else cbind(Avg = 1, M))
-  colnames(Mi) <- paste0("mu", 1:ncol(Mi))
+  Mi <- solve(if(nrow(M) == ncol(M)) M else cbind(Ave = 1, M))
+  colnames(Mi) <- paste0("m", .zf(1:ncol(Mi)))
   if(isS4(Mi)) Mi else fractional(Mi)
 }
 
@@ -382,7 +404,7 @@ mean_contrasts <- function(M) {
 contr.diff <- function(n, contrasts = TRUE, sparse = FALSE) {
   if (is.numeric(n) && length(n) == 1L) {
     if (n > 1L)
-      levels <- as.character(seq_len(n))
+      levels <- .zf(seq_len(n))
     else stop("not enough degrees of freedom to define contrasts")
   }
   else {
@@ -394,6 +416,9 @@ contr.diff <- function(n, contrasts = TRUE, sparse = FALSE) {
     dimnames(B) <- list(1:n, levels)
     if(sparse) B <- .asSparse(B)
     return(B)
+  }
+  if(max(nchar(levels)) > 3) {
+    levels <- paste0("m", .zf(seq_len(n)))
   }
   B <- matrix(1, n, n)
   B <- (B - upper.tri(B))[, -1]

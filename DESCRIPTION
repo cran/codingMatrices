@@ -1,7 +1,7 @@
 Package: codingMatrices
 Type: Package
-Title: Alternative Coding Matrices for Factors in Linear Model Formulae
-Version: 0.1.1
+Title: Alternative Factor Coding Matrices for Linear Model Formulae
+Version: 0.2.0
 Author: Bill Venables
 Maintainer: Bill Venables <Bill.Venables@gmail.com>
 Description: A collection of coding functions as alternatives to the standard
@@ -10,12 +10,13 @@ Description: A collection of coding functions as alternatives to the standard
     effects in multi-way factorial models.  In a simple one-way ANOVA model the
     intercept term is always the simple average of the class means.
 Depends: stats
-Imports: Matrix, methods, fractional
-Suggests: MASS
+Imports: Matrix, methods, fractional, utils
+Suggests: knitr, MASS, dplyr, car, ggplot2
 License: GPL (>= 2)
 LazyData: TRUE
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2016-02-10 12:41:08 UTC; Bill
+Packaged: 2016-02-15 14:07:30 UTC; bill
 Repository: CRAN
-Date/Publication: 2016-02-10 18:57:08
+Date/Publication: 2016-02-15 16:03:10
