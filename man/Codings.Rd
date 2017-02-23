@@ -4,12 +4,12 @@
 \alias{Codings}
 \alias{code_control}
 \alias{code_control_last}
-\alias{code_deviation}
-\alias{code_deviation_first}
 \alias{code_diff}
 \alias{code_diff_forward}
 \alias{code_helmert}
 \alias{code_helmert_forward}
+\alias{code_deviation}
+\alias{code_deviation_first}
 \alias{code_poly}
 \alias{contr.diff}
 \title{Coding matrix functions for factors in linear model formulae}
@@ -118,4 +118,3 @@ mean_contrasts(code_helmert_forward(6))  ## each mean with the averave succeedin
 The \code{MASS} function \code{\link[MASS]{contr.sdif}} which is an early
    version of \code{code_deviation} (by the same author).
 }
-

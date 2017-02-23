@@ -116,7 +116,7 @@ code_control <- function(n, contrasts = TRUE, sparse = FALSE) {
     levels <- paste0("m", .zf(seq_len(n)))
   }
   B <- B - 1/n
-  B <- B[, -1]
+  B <- B[, -1, drop = FALSE]
   colnames(B) <- paste(levels[-1], levels[1], sep="-")
   if(sparse){
     .asSparse(B)
@@ -147,7 +147,7 @@ code_control_last <- function(n, contrasts = TRUE, sparse = FALSE) {
     levels <- paste0("m", .zf(seq_len(n)))
   }
   B <- B - 1/n
-  B <- B[, -n]
+  B <- B[, -n, drop = FALSE]
   colnames(B) <- paste(levels[-n], levels[n], sep="-")
   if(sparse){
     .asSparse(B)
@@ -180,7 +180,7 @@ code_diff <- function(n, contrasts = TRUE, sparse = FALSE) {
   B <- col(matrix(0, n, n)) - 1
   ut <- upper.tri(B)
   B[ut] <- B[ut] - n
-  B <- B[, -1]/n
+  B <- B[, -1, drop = FALSE]/n
   dimnames(B) <- list(1:n,
                       paste(levels[-1], levels[-n], sep = "-"))
   if(sparse){
@@ -214,7 +214,7 @@ code_diff_forward <- function(n, contrasts = TRUE, sparse = FALSE) {
   B <- 1 - col(matrix(0, n, n))
   ut <- upper.tri(B)
   B[ut] <- n + B[ut]
-  B <- B[, -1]/n
+  B <- B[, -1, drop = FALSE]/n
   dimnames(B) <- list(1:n,
                       paste(levels[-n], levels[-1], sep = "-"))
   if(sparse){
@@ -245,7 +245,7 @@ code_helmert <- function(n, contrasts = TRUE, sparse = FALSE) {
   B <- diag(1:n - 1)
   B[upper.tri(B)] <- -1
   B  <- B/rep(1:n, each = n)
-  B <- B[, -1]
+  B <- B[, -1, drop = FALSE]
   dimnames(B) <- list(1:n,
                       paste0("H", .zf(2:n)))
   if(sparse){
@@ -421,7 +421,7 @@ contr.diff <- function(n, contrasts = TRUE, sparse = FALSE) {
     levels <- paste0("m", .zf(seq_len(n)))
   }
   B <- matrix(1, n, n)
-  B <- (B - upper.tri(B))[, -1]
+  B <- (B - upper.tri(B))[, -1, drop = FALSE]
   dimnames(B) <- list(1:n,
                       paste(levels[-1], levels[-n], sep = "-"))
   if(sparse) {

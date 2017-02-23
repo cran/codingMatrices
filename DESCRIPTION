@@ -1,7 +1,7 @@
 Package: codingMatrices
 Type: Package
 Title: Alternative Factor Coding Matrices for Linear Model Formulae
-Version: 0.2.1
+Version: 0.2.2
 Author: Bill Venables
 Maintainer: Bill Venables <Bill.Venables@gmail.com>
 Description: A collection of coding functions as alternatives to the standard
@@ -14,9 +14,9 @@ Imports: Matrix, methods, fractional, utils
 Suggests: knitr, MASS, dplyr, car, ggplot2
 License: GPL (>= 2)
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2016-07-09 00:47:51 UTC; Bill
+Packaged: 2017-02-23 01:44:36 UTC; Bill
 Repository: CRAN
-Date/Publication: 2016-07-09 10:13:58
+Date/Publication: 2017-02-23 08:30:58
