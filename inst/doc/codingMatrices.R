@@ -2,7 +2,8 @@
 knitr::opts_chunk$set(message = FALSE, comment = "",
                       fig.height=5, fig.width=7,
                       out.width="0.75\\textwidth",
-                      fig.align = "center")
+                      fig.align = "center",
+                      fig.path = "./_")
 library(dplyr)  ## we use the pipe operator, %>%, habitually
 library(stats)
 library(fractional)
@@ -111,26 +112,25 @@ anova(m2) %>% booktabs
 anova(update(m2, . ~ Mother*Litter)) %>% booktabs
 
 ## ----results="asis"------------------------------------------------------
-library(car)
-Anova(m2, type = "II") %>% booktabs
+car::Anova(m2, type = "II") %>% booktabs
 
 ## ----results="asis"------------------------------------------------------
-Anova(m2, type = "III") %>% booktabs
+car::Anova(m2, type = "III") %>% booktabs
 
 ## ----results="asis"------------------------------------------------------
-Anova(update(m2, contrasts = list(Mother = "contr.SAS")), type = "III") %>%
+car::Anova(update(m2, contrasts = list(Mother = "contr.SAS")), type = "III") %>%
   booktabs
 
 ## ----results="asis"------------------------------------------------------
-Anova(update(m2, contrasts = list(Mother = "contr.SAS",
-                                  Litter = "contr.SAS")),
-      type = "III") %>% booktabs
+car::Anova(update(m2, contrasts = list(Mother = "contr.SAS",
+                                       Litter = "contr.SAS")),
+           type = "III") %>% booktabs
 
 ## ----results="asis"------------------------------------------------------
-Anova(update(m2, contrasts = list(Mother = "contr.sum",
-                                  Litter = "contr.poly")),
-      type = "III") %>% booktabs
-Anova(update(m2, contrasts = list(Mother = "code_diff",
-                                  Litter = "code_helmert")),
-      type = "III") %>% booktabs
+car::Anova(update(m2, contrasts = list(Mother = "contr.sum",
+                                       Litter = "contr.poly")),
+           type = "III") %>% booktabs
+car::Anova(update(m2, contrasts = list(Mother = "code_diff",
+                                       Litter = "code_helmert")),
+           type = "III") %>% booktabs
 

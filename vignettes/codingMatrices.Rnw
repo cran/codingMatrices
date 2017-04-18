@@ -19,7 +19,8 @@
 knitr::opts_chunk$set(message = FALSE, comment = "",
                       fig.height=5, fig.width=7,
                       out.width="0.75\\textwidth",
-                      fig.align = "center")
+                      fig.align = "center",
+                      fig.path = "./_")
 library(dplyr)  ## we use the pipe operator, %>%, habitually
 library(stats)
 library(fractional)
@@ -1029,8 +1030,7 @@ First consider ``Type II'', which observes the marginality principle
 and hence the results do not depend on the choice of coding function:
 
 <<results="asis">>=
-library(car)
-Anova(m2, type = "II") %>% booktabs
+car::Anova(m2, type = "II") %>% booktabs
 @
 
 In this case the result is a composite table formed by taking the main
@@ -1051,7 +1051,7 @@ the main effect of one factor is defined by contrasts in the means for
 the \emph{first level only} of the other factor.
 
 <<results="asis">>=
-Anova(m2, type = "III") %>% booktabs
+car::Anova(m2, type = "III") %>% booktabs
 @
 
 Now the main effect of \texttt{Litter} seems important, simply because
@@ -1066,7 +1066,7 @@ the last, however, we would expect from the same diagram the
 last levels.
 
 <<results="asis">>=
-Anova(update(m2, contrasts = list(Mother = "contr.SAS")), type = "III") %>%
+car::Anova(update(m2, contrasts = list(Mother = "contr.SAS")), type = "III") %>%
   booktabs
 @
 
@@ -1074,9 +1074,9 @@ And indeed it does so appear.  If we vary the \texttt{Litter}
 contrasts also to the same form, the \texttt{Mother} term changes as well.
 
 <<results="asis">>=
-Anova(update(m2, contrasts = list(Mother = "contr.SAS",
-                                  Litter = "contr.SAS")),
-      type = "III") %>% booktabs
+car::Anova(update(m2, contrasts = list(Mother = "contr.SAS",
+                                       Litter = "contr.SAS")),
+           type = "III") %>% booktabs
 @
 
 There is really no paradox here.  We have chosen coding matrices which
@@ -1109,12 +1109,12 @@ a simple average as the averaging vector, produce the same Type~III
 ANOVA table:
 
 <<results="asis">>=
-Anova(update(m2, contrasts = list(Mother = "contr.sum",
-                                  Litter = "contr.poly")),
-      type = "III") %>% booktabs
-Anova(update(m2, contrasts = list(Mother = "code_diff",
-                                  Litter = "code_helmert")),
-      type = "III") %>% booktabs
+car::Anova(update(m2, contrasts = list(Mother = "contr.sum",
+                                       Litter = "contr.poly")),
+           type = "III") %>% booktabs
+car::Anova(update(m2, contrasts = list(Mother = "code_diff",
+                                       Litter = "code_helmert")),
+           type = "III") %>% booktabs
 @
 
 \bibliography{refs}
