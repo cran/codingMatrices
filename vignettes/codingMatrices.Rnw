@@ -1023,7 +1023,8 @@ Fox's\footnote{John, in his engaging and very pragmatic way
   ANOVA tables, but the help information firmly
   recommends that users \emph{do not} use ``Type III'' unless they
   fully understand what they mean---and there is a not very subtle
-  implication that he expects most will not.}  \texttt{car} package
+  implication that he expects most will not.}  \texttt{car} package,
+  \citep{fox_wesiberg11:_car_package},
 which has an \texttt{Anova} function for the purpose.
 
 First consider ``Type II'', which observes the marginality principle

@@ -1,7 +1,7 @@
 Package: codingMatrices
 Type: Package
 Title: Alternative Factor Coding Matrices for Linear Model Formulae
-Version: 0.3.1
+Version: 0.3.2
 Author: Bill Venables
 Maintainer: Bill Venables <Bill.Venables@gmail.com>
 Description: A collection of coding functions as alternatives to the standard
@@ -11,12 +11,12 @@ Description: A collection of coding functions as alternatives to the standard
     intercept term is always the simple average of the class means.
 Depends: stats
 Imports: Matrix, methods, fractional, utils
-Suggests: knitr, MASS, dplyr, car, ggplot2
+Suggests: knitr, MASS, dplyr, car, ggplot2, xtable
 License: GPL (>= 2)
 LazyData: TRUE
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2017-05-04 22:53:55 UTC; ven037
+Packaged: 2018-02-18 21:02:18 UTC; ven037
 Repository: CRAN
-Date/Publication: 2017-05-05 03:12:23 UTC
+Date/Publication: 2018-02-18 21:30:34 UTC
