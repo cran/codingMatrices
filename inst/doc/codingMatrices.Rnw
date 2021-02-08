@@ -65,14 +65,14 @@ Consider a single classification model with $p$ classes.  Let the
 class means be $\mu_1, \mu_2, \ldots, \mu_p$, which under the outer
 hypothesis are allowed to be all different.
 
-Let $\bsm = (\mu_1, \mu_2, \ldots, \mu_p)^\T$ be the vector of class means.
+Let $\bsm = (\mu_1, \mu_2, \ldots, \mu_p)^{\mathsf{T}}$ be the vector of class means.
 
 If the observation vector is arranged in class order, the \emph{incidence
-matrix}, $\X^{n\times p}$ is a binary matrix with the following
+matrix}, $\mathbf{X}^{n\times p}$ is a binary matrix with the following
 familiar structure:
 \begin{equation}
   \label{eq:incidence}
-  \X^{n\times p} =
+  \mathbf{X}^{n\times p} =
   \begin{bmatrix*}[l]
   \one_{n_1}&\zero&\cdots&\zero\\
   \zero&\one_{n_2}&\cdots&\zero\\
@@ -88,7 +88,7 @@ Under the outer hypothesis\footnote{Sometimes called the
 entire sample can be written, in matrix terms
 \begin{equation}
   \label{eq:outer}
-  \bsy = \X\bsm
+  \bsy = \mathbf{X}\bsm
 \end{equation}
 
 
@@ -99,65 +99,65 @@ vector may be written:
   \label{eq:null}
   \bsy = \one_n\mu_.
 \end{equation}
-Noting that $\X$ is a binary matrix with a singly unity entry in each
+Noting that $\mathbf{X}$ is a binary matrix with a singly unity entry in each
 row, we see that, trivially:
 \begin{equation}
   \label{eq:gm}
-  \one_n = \X\one_p
+  \one_n = \mathbf{X}\one_p
 \end{equation}
 This will be used shortly.
 
 \subsection{Transformation to new parameters}
 \label{sec:trans}
 
-Let $\C^{p\times p}$ be a non-singular matrix, and rather than using
+Let $\mathbf{C}^{p\times p}$ be a non-singular matrix, and rather than using
 $\bsm$ as the parameters for our model, we decide to use an alternative
 set of parameters defined as:
 \begin{equation}
   \label{eq:transf}
-  \bsb = \C\bsm
+  \bsb = \mathbf{C}\bsm
 \end{equation}
-Since $\C$ is non-singular we can write the inverse transformation as
+Since $\mathbf{C}$ is non-singular we can write the inverse transformation as
 \begin{equation}
   \label{eq:invtrans}
-  \bsm = \C^{-1}\bsb = \B\bsb
+  \bsm = \mathbf{C}^{-1}\bsb = \mathbf{B}\bsb
 \end{equation}
-Where it is convenient to define $\B = \C^{-1}$.
+Where it is convenient to define $\mathbf{B} = \mathbf{C}^{-1}$.
 
 We can write our outer model, (\ref{eq:outer}), in terms of
 the new parameters as
 \begin{equation}
   \label{eq:new-pars}
-  \bsy = \X\bsm = \X\B\bsb
+  \bsy = \mathbf{X}\bsm = \mathbf{X}\mathbf{B}\bsb
 \end{equation}
-So using $\tilde\X = \X\B$ as our model matrix (in \R terms) the
+So using $\tilde{\mathbf{X}} = \mathbf{X}\mathbf{B}$ as our model matrix (in \R terms) the
 regression coefficients are the new parameters, $\bsb$.
 
-Notice that if we choose our transformation $\C$ in such a way to
-ensure that one of the columns, say the first, of the matrix $\B =
-\C^{-1}$ is a column of unities, $\one_p$, we can separate out the
+Notice that if we choose our transformation $\mathbf{C}$ in such a way to
+ensure that one of the columns, say the first, of the matrix $\mathbf{B} =
+\mathbf{C}^{-1}$ is a column of unities, $\one_p$, we can separate out the
 first column of this new model matrix as an \emph{intercept} column.
 
 Before doing so, it is convenient to label the components of $\bsb$ as
 \begin{displaymath}
-  \bsb^\T = (\beta_0, \beta_1, \beta_2, \ldots, \beta_{p-1}) =
-(\beta_0, \bsb_\star^\T)
+  \bsb^{\mathsf{T}} = (\beta_0, \beta_1, \beta_2, \ldots, \beta_{p-1}) =
+(\beta_0, \bsb_\star^{\mathsf{T}})
 \end{displaymath}
 that is, the first component is separated out and labelled $\beta_0$.
 
-Assuming now that we can arrange for the first column of $\B$ to be a
+Assuming now that we can arrange for the first column of $\mathbf{B}$ to be a
 column of unities we can write:
 \begin{equation}
   \label{eq:new-pars-2}
   \begin{split}
-      \X\B\bsb &= \X\left[\one_p\;\B_\star\right]
+      \mathbf{X}\mathbf{B}\bsb &= \mathbf{X}\left[\one_p\;\mathbf{B}_\star\right]
   \begin{bmatrix*}[l]
     \beta_0\\
     \bsb_\star^{(p-1)\times1}
   \end{bmatrix*} \\
-  & = \X\left(\one_p\beta_0 + \B_\star\bsb_\star\right)\\
-  & = \X\one_p\beta_0 + \X\B_\star\bsb_\star\\
-  & = \one_n\beta_0 + \X_\star\bsb_\star
+  & = \mathbf{X}\left(\one_p\beta_0 + \mathbf{B}_\star\bsb_\star\right)\\
+  & = \mathbf{X}\one_p\beta_0 + \mathbf{X}\mathbf{B}_\star\bsb_\star\\
+  & = \one_n\beta_0 + \mathbf{X}_\star\bsb_\star
   \end{split}
 \end{equation}
 Thus under this assumption we can express the model in terms of a
@@ -169,10 +169,10 @@ $\bsb_\star^{(p-1)\times1}$ with the property that
     components of $\bsb_\star$ are zero.}
 \end{quotation}
 
-The $p\times(p-1)$ matrix $\B_\star$ is called a \emph{coding
+The $p\times(p-1)$ matrix $\mathbf{B}_\star$ is called a \emph{coding
   matrix}. The important thing to note about it is that the only
 restriction we need to place on it is that when a vector of unities is
-prepended, the resulting matrix $\B = [\one_p\;\B_\star]$ must be
+prepended, the resulting matrix $\mathbf{B} = [\one_p\;\mathbf{B}_\star]$ must be
 non-singular.
 
 In \R the familiar \texttt{stats} package functions
@@ -193,9 +193,9 @@ use earlier.  (This was the same year as the first edition of
 We define
 \begin{description}
 \item[An averaging vector] as any vector, $\cv^{p\times1}$, whose
-  components add to $1$, that is, $\cv^\T\one_p = 1$, and
+  components add to $1$, that is, $\cv^{\mathsf{T}}\one_p = 1$, and
 \item[A contrast vector] as any \emph{non-zero} vector $\cv^{p\times1}$
-  whose components add to zero, that is, $\cv^\T\one_p = 0$.
+  whose components add to zero, that is, $\cv^{\mathsf{T}}\one_p = 0$.
 \end{description}
 
 Essentially an averaging vector a kind of weighted mean\footnote{Note,
@@ -209,18 +209,18 @@ components:
   \label{eq:simple-av}
    \mathbf{a}^{p\times1} = \left({\textstyle\frac1p},
      {\textstyle\frac1p},\ldots,
-     {\textstyle\frac1p}\right)^\T
+     {\textstyle\frac1p}\right)^{\mathsf{T}}
 \end{equation}
 a \emph{simple averaging vector}.
 
 Possibly the simplest contrast has the form:
 \begin{displaymath}
-  \cv = (0, \ldots, 0, 1, 0, \ldots, 0, -1, 0, \ldots, 0)^\T
+  \cv = (0, \ldots, 0, 1, 0, \ldots, 0, -1, 0, \ldots, 0)^{\mathsf{T}}
 \end{displaymath}
 that is, with the only two non-zero components $-1$ and $1$.  Such a
 contrast is sometimes called an \emph{elementary} contrast.  If the $1$
 component is at position $i$ and the $-1$ at $j$, then the contrast
-$\cv^\T\bsm$ is clearly $\mu_i-\mu_j$, a simple difference.
+$\cv^{\mathsf{T}}\bsm$ is clearly $\mu_i-\mu_j$, a simple difference.
 
 Two contrasts vectors will be called \emph{equivalent} if one is a
 scalar multiple of the other, that is, two contrasts $\cv$ and $\dv$
@@ -239,41 +239,41 @@ $\lambda$.\footnote{If we augment the set of all contrast vectors of
 \label{sec:choosy}
 
 Following on our discussion of transformed parameters, note that the
-matrix $\B$ has two roles
+matrix $\mathbf{B}$ has two roles
 \begin{itemize}
 \item It defines the original class means in terms of the new
-  parameters: $\bsm = \B\bsb$ and
+  parameters: $\bsm = \mathbf{B}\bsb$ and
 \item It modifies the original incidence design matrix, $X$, into the
-  new model matrix $\X\B$.
+  new model matrix $\mathbf{X}\mathbf{B}$.
 \end{itemize}
-Recall also that $\bsb = \C\bsm = \B^{-1}\bsm$ so the inverse matrix
-$\B^{-1}$ determines \emph{how the transformed parameters relate to
+Recall also that $\bsb = \mathbf{C}\bsm = \mathbf{B}^{-1}\bsm$ so the inverse matrix
+$\mathbf{B}^{-1}$ determines \emph{how the transformed parameters relate to
   the original class means}, that is, it determines what the
 \emph{interpretation} of the new parameters in terms of the primary
 ones.
 
-Choosing a $\B$ matrix with an initial column of ones is the first
+Choosing a $\mathbf{B}$ matrix with an initial column of ones is the first
 desirable feature we want, but we would also like to choose the
 transformation so that the parameters $\bsb$ have a ready
 interpretation in terms of the class means.
 
-Write the rows of $\C$ as $\cv_0^\T, \cv_1^\T, \ldots, \cv_{p-1}^\T$.
+Write the rows of $\mathbf{C}$ as $\cv_0^{\mathsf{T}}, \cv_1^{\mathsf{T}}, \ldots, \cv_{p-1}^{\mathsf{T}}$.
 Then
 \begin{equation}
   \label{eq:cmat}
- \I_p = \C\B =
+ \mathbf{I}_p = \mathbf{C}\mathbf{B} =
  \begin{bmatrix*}[l]
-   \cv_0^\T\\
-   \cv_1^\T\\
+   \cv_0^{\mathsf{T}}\\
+   \cv_1^{\mathsf{T}}\\
    \;\vdots\\
-   \cv_{p-1}^\T
+   \cv_{p-1}^{\mathsf{T}}
  \end{bmatrix*}
- \left[\one_p\;\B_\star\right] =  \left[
+ \left[\one_p\;\mathbf{B}_\star\right] =  \left[
     \begin{matrix*}[l]
-    \cv_0^\T\one_p & \cv_0^\T\B_\star    \\
-    \cv_1^\T\one_p &  \cv_1^\T\B_\star    \\
+    \cv_0^{\mathsf{T}}\one_p & \cv_0^{\mathsf{T}}\mathbf{B}_\star    \\
+    \cv_1^{\mathsf{T}}\one_p &  \cv_1^{\mathsf{T}}\mathbf{B}_\star    \\
     \;\vdots &  \;\vdots           \\
-    \cv_0^\T\one_p &  \cv_{p-1}^\T\B_\star
+    \cv_0^{\mathsf{T}}\one_p &  \cv_{p-1}^{\mathsf{T}}\mathbf{B}_\star
     \end{matrix*}
   \right]
 \end{equation}
@@ -282,10 +282,10 @@ Equating the first columns of both sides gives:
   \label{eq:firstcol}
   \left[
     \begin{matrix*}[l]
-    \cv_0^\T\one_p     \\
-    \cv_1^\T\one_p    \\
+    \cv_0^{\mathsf{T}}\one_p     \\
+    \cv_1^{\mathsf{T}}\one_p    \\
     \;\vdots            \\
-    \cv_0^\T\one_p
+    \cv_0^{\mathsf{T}}\one_p
     \end{matrix*}
   \right] =
   \begin{bmatrix}
@@ -296,37 +296,37 @@ Equating the first columns of both sides gives:
   \end{bmatrix}
 \end{equation}
 
-This leads to the important result that if $\B = [\one_p\;\B_\star]$ then
+This leads to the important result that if $\mathbf{B} = [\one_p\;\mathbf{B}_\star]$ then
 \begin{itemize}
-\item The first row of $\cv_0^\T$ of $\C$  is an \emph{averaging vector} and
-\item The remaining rows $\cv_1^\T, \cv_2^\T, \ldots,\cv_{p-1}^\T$ will be
+\item The first row of $\cv_0^{\mathsf{T}}$ of $\mathbf{C}$  is an \emph{averaging vector} and
+\item The remaining rows $\cv_1^{\mathsf{T}}, \cv_2^{\mathsf{T}}, \ldots,\cv_{p-1}^{\mathsf{T}}$ will be
   \emph{contrast vectors}.
 \end{itemize}
 
 It will sometimes be useful to recognize this dichotomy my writing
-$\C$ in a way that partitions off the first row.  We then write:
+$\mathbf{C}$ in a way that partitions off the first row.  We then write:
 \begin{equation}
   \label{eq:cstar}
-  \C =
+  \mathbf{C} =
   \begin{bmatrix*}[l]
-    \cv_o^\T\\
-    {\C_\star}^\T
+    \cv_o^{\mathsf{T}}\\
+    {\mathbf{C}_\star}^{\mathsf{T}}
   \end{bmatrix*}
 \end{equation}
 
 
-Most importantly, since the argument is reversible, choosing $\C$ as a
+Most importantly, since the argument is reversible, choosing $\mathbf{C}$ as a
 non-singular matrix in this way, that is as an averaging vector for
 the first row and a linearly independent set of contrasts vectors as
-the remaining rows, will ensure that $\B$ has the desired form
-$\B = [\one_p\;\B_\star]$.
+the remaining rows, will ensure that $\mathbf{B}$ has the desired form
+$\mathbf{B} = [\one_p\;\mathbf{B}_\star]$.
 
 Note that
 \begin{itemize}
 \item How we choose the averaging vector $\cv_0$ for the first row
   will determine the relationship between the intercept coefficient,
   $\beta_0$, and the class means, and
-\item How we choose the contrasts, $\C_\star$ will determine the
+\item How we choose the contrasts, $\mathbf{C}_\star$ will determine the
   interpretation of the regression coefficients $\bsb_\star$ in terms of
   the class means.
 \end{itemize}
@@ -336,21 +336,21 @@ $\cv_0=\frac1p \one_p$.  The first row of equation~(\ref{eq:cmat}) now
 shows that
 \begin{equation}
   \label{eq:firstrow}
-  \left[1\quad\zero_{p-1}^\T\right] =
-  \left[{\textstyle\frac1p}\one_p^\T\one_p\quad
-    {\textstyle\frac1p}\one_p^\T\B_\star\right]
+  \left[1\quad\zero_{p-1}^{\mathsf{T}}\right] =
+  \left[{\textstyle\frac1p}\one_p^{\mathsf{T}}\one_p\quad
+    {\textstyle\frac1p}\one_p^{\mathsf{T}}\mathbf{B}_\star\right]
 \end{equation}
-and hence $\one_p^\T\B_\star = \zero_{p-1}^\T$, which implies that in
-this special case the \emph{columns} of the coding matrix, $\B_\star$
+and hence $\one_p^{\mathsf{T}}\mathbf{B}_\star = \zero_{p-1}^{\mathsf{T}}$, which implies that in
+this special case the \emph{columns} of the coding matrix, $\mathbf{B}_\star$
 are also contrast vectors, (though not necessarily the same contrasts
-as, or even equivalent to, those in the rows of $\C$).
+as, or even equivalent to, those in the rows of $\mathbf{C}$).
 
 \subsection{Orthogonal contrasts}
 \label{sec:orthog}
 
 A set of vectors $\cv_1, \ldots, \cv_{p-1}$ is called
-\emph{orthogonal} if $\cv_i^\T\cv_j = 0$ if $i \neq j$.  Suppose now
-we choose the $\C$ matrix with
+\emph{orthogonal} if $\cv_i^{\mathsf{T}}\cv_j = 0$ if $i \neq j$.  Suppose now
+we choose the $\mathbf{C}$ matrix with
 \begin{itemize}
 \item The first row as a simple averaging vector,
   $\cv_0=\frac1p\one_p$, and
@@ -359,42 +359,42 @@ we choose the $\C$ matrix with
 \end{itemize}
 
 A simple averaging vector is orthogonal to every contrast by the
-definition of contrast, so in this case the rows of the matrix $\C$
-are all orthogonal vectors.  This implies that $\C^\T\C$ is a diagonal
+definition of contrast, so in this case the rows of the matrix $\mathbf{C}$
+are all orthogonal vectors.  This implies that $\mathbf{C}^{\mathsf{T}}\mathbf{C}$ is a diagonal
 matrix:
 \begin{equation}
   \label{eq:diagonal}
-  \C\C^\T =
+  \mathbf{C}\mathbf{C}^{\mathsf{T}} =
 \left[
 \begin{matrix}
-\frac1{p^2}\one_p^\T\one_p & 0 & 0 & \cdots & 0\\
-0 & {\cv_1^\T}\cv_1 & 0 & \cdots & 0\\
-0 & 0 & {\cv_2^\T}\cv_2 & \cdots & 0\\
+\frac1{p^2}\one_p^{\mathsf{T}}\one_p & 0 & 0 & \cdots & 0\\
+0 & {\cv_1^{\mathsf{T}}}\cv_1 & 0 & \cdots & 0\\
+0 & 0 & {\cv_2^{\mathsf{T}}}\cv_2 & \cdots & 0\\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
-0 & 0 & 0 & \cdots &  {\cv_{p-1}^\T}\cv_{p-1}
+0 & 0 & 0 & \cdots &  {\cv_{p-1}^{\mathsf{T}}}\cv_{p-1}
 \end{matrix}
-\right] = \D \quad \text{say.}
+\right] = \mathbf{D} \quad \text{say.}
 \end{equation}
-Noting that, trivially, $\I_p =\C\C^\T(\C\C^\T)^{-1}$ and since $\C\B
-= \I_p$ it follows
+Noting that, trivially, $\mathbf{I}_p =\mathbf{C}\mathbf{C}^{\mathsf{T}}(\mathbf{C}\mathbf{C}^{\mathsf{T}})^{-1}$ and since $\mathbf{C}\mathbf{B}
+= \mathbf{I}_p$ it follows
 that,
 \begin{equation}
   \label{eq:orthog-conts}
-  \B = \C^\T(\C\C^\T)^{-1} = \C^\T\D^{-1}
+  \mathbf{B} = \mathbf{C}^{\mathsf{T}}(\mathbf{C}\mathbf{C}^{\mathsf{T}})^{-1} = \mathbf{C}^{\mathsf{T}}\mathbf{D}^{-1}
 \end{equation}
-Furthermore since in this case $\D^{-1}$ is a \emph{diagonal} matrix,
-it follows that each of the columns of $\B$ is a (strictly positive)
-scalar multiple of the \emph{corresponding row} of $\C$.  So in
-particular the contrasts in $\B$ and $\C$ are, one for one,
+Furthermore since in this case $\mathbf{D}^{-1}$ is a \emph{diagonal} matrix,
+it follows that each of the columns of $\mathbf{B}$ is a (strictly positive)
+scalar multiple of the \emph{corresponding row} of $\mathbf{C}$.  So in
+particular the contrasts in $\mathbf{B}$ and $\mathbf{C}$ are, one for one,
 equivalent.
 
 We may summarise this by noting that
 \begin{itemize}
-\item The columns of the coding matrix, $\B_\star$, are contrast
+\item The columns of the coding matrix, $\mathbf{B}_\star$, are contrast
   vectors \emph{if and only if} the averaging vector $\cv_0$ is a
   simple averaging vector, and
 \item In addition, the corresponding contrast vectors in the columns
-  of $\B$ and in the rows of $\C$ are \emph{equivalent}, if and only
+  of $\mathbf{B}$ and in the rows of $\mathbf{C}$ are \emph{equivalent}, if and only
   if either of them form an orthogonal set.
 \end{itemize}
 
@@ -441,8 +441,8 @@ levs <- letters[1:5]
 Bstar <- contr.treatment(levs) %>% fractional %>% print
 @
 To see what the implied regression coefficients mean we look at the
-$\C$~matrix.
-The columns of $\B_\star$ are clearly not contrasts, so we expect that
+$\mathbf{C}$~matrix.
+The columns of $\mathbf{B}_\star$ are clearly not contrasts, so we expect that
 the correspond averaging vector will not be a simple averaging vector.
 <<>>=
 B <- cbind(Ave = 1, Bstar) %>% fractional %>% print
@@ -672,37 +672,37 @@ cbind(model.matrix(~0+f, dat), "----" = 0,
       model.matrix(~0+g, dat), "----" = 0,
       model.matrix(~ 0 + f:g, dat)) %>% fractional
 @
-If $\X^f$ and $\X^g$ are the incidence matrices for \texttt{f} and
-\texttt{g} respectively, and $\X^{fg}$ the incidence matrix for the
-subclasses, notice that $\X^{fg}$ can be generated by taking $\X^f$
-and multiplying it, componentwise, by each column of $\X^g$ in turn
+If $\mathbf{X}^f$ and $\mathbf{X}^g$ are the incidence matrices for \texttt{f} and
+\texttt{g} respectively, and $\mathbf{X}^{fg}$ the incidence matrix for the
+subclasses, notice that $\mathbf{X}^{fg}$ can be generated by taking $\mathbf{X}^f$
+and multiplying it, componentwise, by each column of $\mathbf{X}^g$ in turn
 and joining the results as the partitions to form a $n\times pq$
-matrix, namely $\X^{fg}$. More formally:
+matrix, namely $\mathbf{X}^{fg}$. More formally:
 
 \begin{itemize}
-\item If $\fv^\T$ is the $i-$th row of $\X^f$ and
-\item If $\gv^\T$ is the $i-$th row of $\X^g$,
-\item The $i-$th row of $\X^{fg}$ is their Kronecker product
-  $\gv^\T\otimes\fv^\T$.  (Note the reversed order.)
+\item If $\fv^{\mathsf{T}}$ is the $i-$th row of $\mathbf{X}^f$ and
+\item If $\gv^{\mathsf{T}}$ is the $i-$th row of $\mathbf{X}^g$,
+\item The $i-$th row of $\mathbf{X}^{fg}$ is their Kronecker product
+  $\gv^{\mathsf{T}}\otimes\fv^{\mathsf{T}}$.  (Note the reversed order.)
 \end{itemize}
 
-It is useful to note that the $\X^f$ and $\X^g$ can be recovered from
-$\X^{fg}$ by adding selected columns together, as well as the
+It is useful to note that the $\mathbf{X}^f$ and $\mathbf{X}^g$ can be recovered from
+$\mathbf{X}^{fg}$ by adding selected columns together, as well as the
 intercept term.  The relevant relations are
 \begin{align*}
-    \X^f &= \X^{fg} \left(\one_q\otimes\I_p\right)\\
-    \X^g &= \X^{fg} \left(\I_q\otimes\one_p\right)\\
-    \one_n &= \X^{fg}\left(\one_q\otimes\one_p\right) = \X^{fg} \one_{pq}
+    \mathbf{X}^f &= \mathbf{X}^{fg} \left(\one_q\otimes\mathbf{I}_p\right)\\
+    \mathbf{X}^g &= \mathbf{X}^{fg} \left(\mathbf{I}_q\otimes\one_p\right)\\
+    \one_n &= \mathbf{X}^{fg}\left(\one_q\otimes\one_p\right) = \mathbf{X}^{fg} \one_{pq}
 \end{align*}
 An easily proved mild generalization of these relations, namely:
 \begin{equation}
   \label{eq:mmatsg}
   \begin{split}
-    \X^f\B &= \X^{fg} \left(\one_q\otimes\B\right)\\
-    \X^g\D &= \X^{fg} \left(\D\otimes\one_p\right)
+    \mathbf{X}^f\mathbf{B} &= \mathbf{X}^{fg} \left(\one_q\otimes\mathbf{B}\right)\\
+    \mathbf{X}^g\mathbf{D} &= \mathbf{X}^{fg} \left(\mathbf{D}\otimes\one_p\right)
   \end{split}
 \end{equation}
-(for any multiplicatively coherent matrices $\B$ and $\D$) will be
+(for any multiplicatively coherent matrices $\mathbf{B}$ and $\mathbf{D}$) will be
 useful later.
 
 \subsection{Transformations of the mean}
@@ -732,31 +732,31 @@ will be omitted.
 \end{equation}
 
 
-Let $\C^f$  and $\C^g$ be the contrast matrices corresponding to the
-full coding matrices $\B^f$ and $\B^g$ respectively.  That is:
+Let $\mathbf{C}^f$  and $\mathbf{C}^g$ be the contrast matrices corresponding to the
+full coding matrices $\mathbf{B}^f$ and $\mathbf{B}^g$ respectively.  That is:
 \begin{equation}
   \label{eq:contcode}
   \begin{split}
-    \B^f  = \left[\one_p\;\B^f_\star\right] &= {\C^f}^{-1}\\
-    \B^g  = \left[\one_q\;\B^g_\star\right] &= {\C^g}^{-1}
+    \mathbf{B}^f  = \left[\one_p\;\mathbf{B}^f_\star\right] &= {\mathbf{C}^f}^{-1}\\
+    \mathbf{B}^g  = \left[\one_q\;\mathbf{B}^g_\star\right] &= {\mathbf{C}^g}^{-1}
   \end{split}
 \end{equation}
 with the inverse relations:
 \begin{equation}
   \label{eq:codecont}
   \begin{split}
-    \C^f  =
+    \mathbf{C}^f  =
     \begin{bmatrix*}[l]
-      {\cv_0^f}^\T\\
-      {\C^f_\star}^\T
+      {\cv_0^f}^{\mathsf{T}}\\
+      {\mathbf{C}^f_\star}^{\mathsf{T}}
     \end{bmatrix*}
-   & = {\B^f}^{-1}\\
-    \C^g  =
+   & = {\mathbf{B}^f}^{-1}\\
+    \mathbf{C}^g  =
     \begin{bmatrix*}[l]
-      {\cv_0^g}^\T\\
-      {\C^g_\star}^\T
+      {\cv_0^g}^{\mathsf{T}}\\
+      {\mathbf{C}^g_\star}^{\mathsf{T}}
     \end{bmatrix*}
-   & = {\B^g}^{-1}
+   & = {\mathbf{B}^g}^{-1}
   \end{split}
 \end{equation}
 
@@ -764,33 +764,33 @@ Linear transformations that respect the two-factor structure are  of
 the form:
 \begin{equation}
   \label{eq:trans0}
-  \bsb_{\bullet\bullet} = \C^f\bsm_{\bullet\bullet}{\C^g}^\T\quad\text{or in
- vector terms}\quad \bsb = \left(\C^g\otimes\C^f\right)\bsm
+  \bsb_{\bullet\bullet} = \mathbf{C}^f\bsm_{\bullet\bullet}{\mathbf{C}^g}^{\mathsf{T}}\quad\text{or in
+ vector terms}\quad \bsb = \left(\mathbf{C}^g\otimes\mathbf{C}^f\right)\bsm
 \end{equation}
 The inverse relationship is then:
 \begin{equation}
   \label{eq:trans1}
-  \bsm_{\bullet\bullet} = \B^f\bsb_{\bullet\bullet}{\B^g}^\T\quad\text{and in
- vector terms}\quad \bsm = \left(\B^g\otimes\B^f\right)\bsb
+  \bsm_{\bullet\bullet} = \mathbf{B}^f\bsb_{\bullet\bullet}{\mathbf{B}^g}^{\mathsf{T}}\quad\text{and in
+ vector terms}\quad \bsm = \left(\mathbf{B}^g\otimes\mathbf{B}^f\right)\bsb
 \end{equation}
 
 First consider the transformations of the
 mean,~Equation~\ref{eq:trans0}.  We partition the matrix as:
 \begin{equation}
   \label{eq:maineffects}
-  \bsb_{\bullet\bullet} = \C^f\bsm_{\bullet\bullet}{\C^g}^\T =
+  \bsb_{\bullet\bullet} = \mathbf{C}^f\bsm_{\bullet\bullet}{\mathbf{C}^g}^{\mathsf{T}} =
   \begin{bmatrix*}[l]
-      {\cv_0^f}^\T\\
-      {\C^f_\star}^\T
+      {\cv_0^f}^{\mathsf{T}}\\
+      {\mathbf{C}^f_\star}^{\mathsf{T}}
     \end{bmatrix*} \bsm_{\bullet\bullet}
-    \left[{\cv_0^g}\; {\C^g_\star}\right]
+    \left[{\cv_0^g}\; {\mathbf{C}^g_\star}\right]
     =  \begin{bmatrix*}[l]
-      {\cv_0^f}^\T\bsm_{\bullet\bullet}{\cv_0^g} & {\cv_0^f}^\T\bsm_{\bullet\bullet} {\C^g_\star}\\
-      {\C^f_\star}^\T\bsm_{\bullet\bullet}{\cv_0^g}& {\C^f_\star}^\T\bsm_{\bullet\bullet} {\C^g_\star}
+      {\cv_0^f}^{\mathsf{T}}\bsm_{\bullet\bullet}{\cv_0^g} & {\cv_0^f}^{\mathsf{T}}\bsm_{\bullet\bullet} {\mathbf{C}^g_\star}\\
+      {\mathbf{C}^f_\star}^{\mathsf{T}}\bsm_{\bullet\bullet}{\cv_0^g}& {\mathbf{C}^f_\star}^{\mathsf{T}}\bsm_{\bullet\bullet} {\mathbf{C}^g_\star}
     \end{bmatrix*} =
     \begin{bmatrix*}[c]
-      \beta_{00} & \bsb_{0\star}^\T\vphantom{{\cv_0^f}^\T}\\
-      \bsb_{\star0} & \bsb_{\star\star}\vphantom{{\cv_0^f}^\T}
+      \beta_{00} & \bsb_{0\star}^{\mathsf{T}}\vphantom{{\cv_0^f}^{\mathsf{T}}}\\
+      \bsb_{\star0} & \bsb_{\star\star}\vphantom{{\cv_0^f}^{\mathsf{T}}}
     \end{bmatrix*}
 \end{equation}
 With this notation:
@@ -846,29 +846,29 @@ using.
 
 The full double classification mean vector can, by definition, be written as
 \begin{displaymath}
-  \bsy = \X^{fg}\bsm = \X^{fg} \left(\B^g\otimes\B^f\right)\bsb =
-  \X^{fg} \left([\one_q\;\B^g_\star]\otimes[\one_p\;\B^f_\star]\right)\bsb
+  \bsy = \mathbf{X}^{fg}\bsm = \mathbf{X}^{fg} \left(\mathbf{B}^g\otimes\mathbf{B}^f\right)\bsb =
+  \mathbf{X}^{fg} \left([\one_q\;\mathbf{B}^g_\star]\otimes[\one_p\;\mathbf{B}^f_\star]\right)\bsb
 \end{displaymath}
 
 If we re-arrange the components of $\bsb$ in the order
 \begin{displaymath}
-  [\beta_{00}, \;\bsb_{\star0}, \;\bsb_{0\star}, \;\bsb_{\star\star}]^\T
+  [\beta_{00}, \;\bsb_{\star0}, \;\bsb_{0\star}, \;\bsb_{\star\star}]^{\mathsf{T}}
 \end{displaymath}
-the transformed model matrix, $\X^{fg}
-\left([\one_q\;\B^g_\star]\otimes[\one_p\;\B^f_\star]\right)$ can be
+the transformed model matrix, $\mathbf{X}^{fg}
+\left([\one_q\;\mathbf{B}^g_\star]\otimes[\one_p\;\mathbf{B}^f_\star]\right)$ can be
 re-arranged into four partitions, namely:
 \begin{equation}
   \label{eq:modeltransf}
-  \left[\one_n\quad \X^f\B^f_\star\quad \X^g\B^g_\star\quad
-    \X^{fg}\left(\B^g_\star\otimes\B^f_\star\right)\right] =
-  \left[\one_n\quad\X^f_\star\quad\X^g_\star\quad\X^{fg}_{\star\star}\right], \qquad\text{say.}
+  \left[\one_n\quad \mathbf{X}^f\mathbf{B}^f_\star\quad \mathbf{X}^g\mathbf{B}^g_\star\quad
+    \mathbf{X}^{fg}\left(\mathbf{B}^g_\star\otimes\mathbf{B}^f_\star\right)\right] =
+  \left[\one_n\quad\mathbf{X}^f_\star\quad\mathbf{X}^g_\star\quad\mathbf{X}^{fg}_{\star\star}\right], \qquad\text{say.}
 \end{equation}
 The sizes of these partitions are, respectively, $n\times1$,
 $n\times(p-1)$, $n\times(q-1)$ and $n\times(p-1)(q-1)$.
 
-Notice that $\X^{fg}_{\star\star}$ can also be obtained from
-$\X^f_\star$ and $\X^g_\star$ by taking $\X^f_\star$ and multiplying
-it, componentwise, by each of the columns of $\X^g_\star$ and
+Notice that $\mathbf{X}^{fg}_{\star\star}$ can also be obtained from
+$\mathbf{X}^f_\star$ and $\mathbf{X}^g_\star$ by taking $\mathbf{X}^f_\star$ and multiplying
+it, componentwise, by each of the columns of $\mathbf{X}^g_\star$ and
 arranging the results in a partitioned matrix.
 
 Putting this together we see that, if $\Pm$ is the permutation
@@ -876,21 +876,21 @@ matrix that affects this re-ordering:
 \begin{equation}
   \label{eq:two-way-means}
   \begin{split}
-    \bsy &= \X^{fg}
-    \left([\one_q\;\B^g_\star]\otimes[\one_p\;\B^f_\star]\right)\bsb \\
+    \bsy &= \mathbf{X}^{fg}
+    \left([\one_q\;\mathbf{B}^g_\star]\otimes[\one_p\;\mathbf{B}^f_\star]\right)\bsb \\
     &=
-    \X^{fg}
-    \left([\one_q\;\B^g_\star]\otimes[\one_p\;\B^f_\star]\right)\Pm^\T\Pm\bsb\\
+    \mathbf{X}^{fg}
+    \left([\one_q\;\mathbf{B}^g_\star]\otimes[\one_p\;\mathbf{B}^f_\star]\right)\Pm^{\mathsf{T}}\Pm\bsb\\
     &=
-    \left[\one_n\quad\X^f_\star\quad\X^g_\star\quad\X^{fg}_{\star\star}\right]
+    \left[\one_n\quad\mathbf{X}^f_\star\quad\mathbf{X}^g_\star\quad\mathbf{X}^{fg}_{\star\star}\right]
     \begin{bmatrix*}[c]
       \beta_{00}\\
       \bsb_{\star0}\\
       \bsb_{0\star}\\
       \bsb_{\star\star}
     \end{bmatrix*}\\
-  \implies\quad  \bsy &= \one_n\beta_{00} + \X^f_\star\bsb_{\star0} +
-    \X^g_\star\bsb_{0\star} + \X^{fg}_{\star\star}\bsb_{\star\star}
+  \implies\quad  \bsy &= \one_n\beta_{00} + \mathbf{X}^f_\star\bsb_{\star0} +
+    \mathbf{X}^g_\star\bsb_{0\star} + \mathbf{X}^{fg}_{\star\star}\bsb_{\star\star}
   \end{split}
 \end{equation}
 Compare this with the simpler expression for the single classification
@@ -909,31 +909,31 @@ for the factors involved.
   obtained by coding the incidence matrix, and joining it to an
   intercept term, i.e.
   \begin{displaymath}
-    \M = \left[\one_n\quad\X^f_\star\right]
+    \mathbf{M} = \left[\one_n\quad\mathbf{X}^f_\star\right]
   \end{displaymath}
 \item To extend this to a double classification, \verb|~ f*g|, take
-  the coded incidence matrix for \texttt{g}, $\X^g_\star$, and
+  the coded incidence matrix for \texttt{g}, $\mathbf{X}^g_\star$, and
   multiply it, column by column, with each of the partitions already
   present, and add them to the single classification.  I.e.
-  $\one_n \cdot \X^g_\star \rightarrow \X^g_\star$ and
-  $\X^f_\star \cdot \X^g_\star \rightarrow \X^{ft}_{\star\star}$ so
+  $\one_n \cdot \mathbf{X}^g_\star \rightarrow \mathbf{X}^g_\star$ and
+  $\mathbf{X}^f_\star \cdot \mathbf{X}^g_\star \rightarrow \mathbf{X}^{ft}_{\star\star}$ so
   the model matrix becomes:
   \begin{displaymath}
-    \M =
-  \left[\one_n\quad\X^f_\star\quad\X^g_\star\quad\X^{fg}_{\star\star}\right]
+    \mathbf{M} =
+  \left[\one_n\quad\mathbf{X}^f_\star\quad\mathbf{X}^g_\star\quad\mathbf{X}^{fg}_{\star\star}\right]
   \end{displaymath}
 \item For higher way models the process of constructing the model
   matrix, for the complete model, follows in the same way.  Each new
-  factor generates a new coded incidence matrix, $\X_{\star}$.
+  factor generates a new coded incidence matrix, $\mathbf{X}_{\star}$.
   Multiply this, columnwise, with each of the partitions of the model
   matrix already there and add the extra partitions to the model
   matrix.  Thus each factor doubles the number of partitions, (or
   terms). So for a 3-factor model, \verb|~ f*g*h|:
   \begin{displaymath}
-    \M =
-  \left[\one_n\quad\X^f_\star\quad\X^g_\star\quad\X^{fg}_{\star\star}
-  \qquad \X^h_\star \quad \X^{fh}_\star \quad \X^{gh}_{\star\star} \quad
-  \X^{fgh}_{\star\star\star}
+    \mathbf{M} =
+  \left[\one_n\quad\mathbf{X}^f_\star\quad\mathbf{X}^g_\star\quad\mathbf{X}^{fg}_{\star\star}
+  \qquad \mathbf{X}^h_\star \quad \mathbf{X}^{fh}_\star \quad \mathbf{X}^{gh}_{\star\star} \quad
+  \mathbf{X}^{fgh}_{\star\star\star}
   \right]
   \end{displaymath}
   In practice, of course, the terms would be arranged according to the
@@ -942,7 +942,7 @@ for the factors involved.
 
 To interpret the regression coefficients resulting from a linear model
 fitted with such a design, however, requires the \emph{contrast matrices}
-$\C= \B^{-1}$, of which the first row, $\cv_0^\T$, is the all-important
+$\mathbf{C}= \mathbf{B}^{-1}$, of which the first row, $\cv_0^{\mathsf{T}}$, is the all-important
 \emph{averaging vector}.
 \begin{itemize}
 \item By an interpretation of the regression coefficients $\bsb$ we mean
@@ -990,7 +990,7 @@ cols <- c(A = "steel blue", B = "rosy brown",
           I = "thistle 3", J = "lemon chiffon 3")
 tab <-  geno %>%
   group_by(Mother, Litter) %>%
-  summarise(Weight = mean(Wt), n = n())
+  summarise(Weight = mean(Wt), n = n(), .groups = "drop")
 ggplot(tab) +
   aes(x = Mother, y = Weight, colour = Litter, group = Litter) +
   xlab("Mother genotype") +
