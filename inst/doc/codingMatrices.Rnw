@@ -5,6 +5,7 @@
 \usepackage{WNVvignette}
 
 \input defs
+\usepackage{fouriernc}
 
 \title{Coding Matrices, Contrast Matrices \\
   and Linear Models}
