@@ -14,13 +14,37 @@
 \alias{contr.diff}
 \title{Coding matrix functions for factors in linear model formulae}
 \usage{
-code_control(n, contrasts = TRUE, sparse = FALSE)
+code_control(
+  n,
+  contrasts = TRUE,
+  sparse = FALSE,
+  abbreviate = substring(tolower(Sys.getenv("R_CODING_ABBREVIATE", "yes")[[1]]), 0, 1) ==
+    "y"
+)
 
-code_control_last(n, contrasts = TRUE, sparse = FALSE)
+code_control_last(
+  n,
+  contrasts = TRUE,
+  sparse = FALSE,
+  abbreviate = substring(tolower(Sys.getenv("R_CODING_ABBREVIATE", "yes")[[1]]), 0, 1) ==
+    "y"
+)
 
-code_diff(n, contrasts = TRUE, sparse = FALSE)
+code_diff(
+  n,
+  contrasts = TRUE,
+  sparse = FALSE,
+  abbreviate = substring(tolower(Sys.getenv("R_CODING_ABBREVIATE", "yes")[[1]]), 0, 1) ==
+    "y"
+)
 
-code_diff_forward(n, contrasts = TRUE, sparse = FALSE)
+code_diff_forward(
+  n,
+  contrasts = TRUE,
+  sparse = FALSE,
+  abbreviate = substring(tolower(Sys.getenv("R_CODING_ABBREVIATE", "yes")[[1]]), 0, 1) ==
+    "y"
+)
 
 code_helmert(n, contrasts = TRUE, sparse = FALSE)
 
@@ -32,7 +56,13 @@ code_deviation_first(n, contrasts = TRUE, sparse = FALSE)
 
 code_poly(n, contrasts = TRUE, sparse = FALSE)
 
-contr.diff(n, contrasts = TRUE, sparse = FALSE)
+contr.diff(
+  n,
+  contrasts = TRUE,
+  sparse = FALSE,
+  abbreviate = substring(tolower(Sys.getenv("R_CODING_ABBREVIATE", "yes")[[1]]), 0, 1) ==
+    "y"
+)
 }
 \arguments{
 \item{n}{Either a positive integer giving the number of levels or the levels
@@ -45,6 +75,11 @@ sometimes needed by the fitting functions) (\code{FALSE})?}
 
 \item{sparse}{Logical: Do you want the result to be a sparse matrix
 object, as generated the the \code{Matrix} package?}
+
+\item{abbreviate}{Logical: should level names be abbreviated in the
+generated contrast labels?  Default: TRUE.  May be set globally by
+setting the environment variable \code{R_CODING_ABBREVIATE} to either
+"yes" or "no", with obvious meaning.}
 }
 \value{
 A coding matrix, as requested by fitting functions using linear

@@ -10,6 +10,7 @@ library(fractional)
 library(codingMatrices)
 library(ggplot2)
 source("./booktabs.R")
+theme_set(theme_bw() + theme(plot.title = element_text(hjust = 0.5)))
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  library(dplyr)
@@ -99,8 +100,8 @@ ggplot(tab) +
   aes(x = Mother, y = Weight, colour = Litter, group = Litter) +
   xlab("Mother genotype") +
   ylab("Litter average weight (in gms)") +
-  geom_line(size = 2, lineend  = "round") +
-  scale_colour_manual(values = cols) + theme_minimal() +
+  geom_line(linewidth = 1.5, lineend  = "round") +
+  scale_colour_manual(values = cols) + # theme_minimal() +
   geom_point(aes(size = n), colour = "black") +
   theme(legend.position = "top", legend.box = "horizontal") +
   guides(shape = guide_legend(title = "Litter genotype"),
